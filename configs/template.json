@@ -1,0 +1,35 @@
+{
+  "spark": {
+    "spark.driver.bindAddress": "localhost",
+    "spark.ui.port": 4040,
+    "spark.driver.memory": "12g",
+    "spark.driver.memoryOverhead": 4096,
+    "spark.sql.shuffle.partitions": 4,
+    "spark.default.parallelism": 4,
+    "spark.master": "local[*]"
+  },
+  "graph":{
+      "name": "GRAPH_NAME",
+      "nodes":{
+          "file_path": "NODES_FILE_PATH",
+          "has_header": "NODES_FILE_HAS_HEADER true OR false",
+          "delimiter": "DELIMITER",
+          "id_column": "ID_COLUMN_NAME",
+          "features": ["FEATURE_NAME","FEATURE_NAME","..."]
+      },
+      "edges":{
+          "file_path": "EDGES_FILE_PATH",
+          "has_header": "EDGES_FILE_HAS_HEADER true OR false",
+          "delimiter": "DELIMITER",
+          "source_col_name" : "SOURCE_COL_NAME",
+          "target_col_name" : "TARGET_COL_NAME"
+      }
+  },
+  "parameters":{
+      "components_threshold" : "FILTER_COMPONENTS that don't contain more than n number of nodes",
+      "k_depth" : "K_DEPTH",
+      "weight_threshold" : "[0,1]",
+      "cosine_threshold" : "[0,1]",
+      "max_iterations": "MAX_ITERATIONS" 
+  }
+}

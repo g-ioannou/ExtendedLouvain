@@ -1,0 +1,36 @@
+{
+    "spark": {
+      "spark.driver.bindAddress": "localhost",
+      "spark.ui.port": 4040,
+      "spark.driver.memory": "12g",
+      "spark.driver.memoryOverhead": 4096,
+      "spark.sql.shuffle.partitions": 4,
+      "spark.default.parallelism": 4,
+      "spark.master": "local[*]"
+    },
+    "graph":{
+        "name": "Quakers",
+        "nodes":{
+            "file_path": "data/input_graphs/Hamsterster/nodes.csv",
+            "has_header": true,
+            "delimiter": ",",
+            "id_column": "ID",
+            "features": ["Favorite_toy","Favorite_food"]
+        },
+        "edges":{
+            "file_path": "data/input_graphs/Hamsterster/edges.csv",
+            "has_header": true,
+            "delimiter": ",",
+            "source_col_name" : "src",
+            "target_col_name" : "dst"
+        }
+    },
+    "parameters":{
+        "components_threshold" : "FILTER_COMPONENTS that don't contain more than n number of nodes",
+        "k_depth" : "2",
+        "weight_threshold" : "[0,1]",
+        "cosine_threshold" : "[0,1]",
+        "max_iterations": "MAX_ITERATIONS" 
+    }
+  }
+  
