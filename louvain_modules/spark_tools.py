@@ -66,12 +66,11 @@ def vectorize_features(nodes_df: DataFrame):
     for col in nodes_df.columns:
         if "feature_" in col:
             nodes_df = nodes_df.withColumn("vector", F.concat(F.col("vector"), F.col(col)))
-
+    
     vector_values = nodes_df.withColumn("vector_exploded", F.explode("vector")).groupBy("vector_exploded").count().drop(
         "count"
     ).withColumn("strength", F.when(F.col("vector_exploded") == F.lit("other"), 1).otherwise(F.lit(100))).rdd.map(lambda row: (row[0],row[1])).collectAsMap()
-
-
+    
     @F.udf(ArrayType(StringType()))
     def udf_calculate_vector(vector_array:list):
         vector = []
@@ -85,7 +84,7 @@ def vectorize_features(nodes_df: DataFrame):
         return vector
     
     nodes_df = nodes_df.withColumn('vector', udf_calculate_vector('vector'))
-
+    
     return nodes_df
 
 def map_lesser_features_to_other(nodes_df: DataFrame):

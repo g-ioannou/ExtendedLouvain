@@ -27,9 +27,9 @@
     },
     "parameters":{
         "components_threshold" : "FILTER_COMPONENTS that don't contain more than n number of nodes",
-        "k_depth" : 1,
-        "weight_threshold" : "[0,1]",
-        "cosine_threshold" : "[0,1]",
+        "k_depth" : 2,
+        "weight_threshold" : "0.5",
+        "cosine_threshold" : "0.6",
         "max_iterations": "MAX_ITERATIONS" 
     }
   }

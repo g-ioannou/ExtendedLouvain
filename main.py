@@ -2,30 +2,38 @@ from louvain_modules import visualizer
 from louvain_modules.initializer import Initializer
 from louvain_modules.visualizer import Visualizer
 
+from pyspark.sql import functions as F
+from pyspark.sql import Window
+
 
 def setup():
     initializer = Initializer()
     spark = initializer.initialize_spark()
     graph = initializer.initialize_graph()
-    k_depth_motif = initializer.k_depth_motif
+    k_depth = initializer.k_depth
     visualizer = Visualizer()
 
-    return spark, graph, k_depth_motif, visualizer
+    COSINE_THRESH = float(initializer.parameters["cosine_threshold"])
+    WEIGHT_THRESH = float(initializer.parameters["weight_threshold"])
+
+    return spark, graph, k_depth, COSINE_THRESH, WEIGHT_THRESH, visualizer
 
 
 def main():
-    spark,G, k_depth_motif, visualizer = setup()
+    spark, G, k_depth, COSINE_THRESH, WEIGHT_THRESH, visualizer = setup()
 
     # TODO setup main loop
 
     G.calculate_cosine_similarities()
 
-    # k_depth_subgraphs = G.find_k_depth_neighbors(k_depth_motif)
+    G.initialize_communities()  # todo move this to initializer
 
-    nodes = G.communities()
-    
-    nodes.show()
-    # k_depth_subgraphs.orderBy("e0.cosine").show(k_depth_subgraphs.count())
+    G.find_k_depth_neighbors(k_depth)
+
+    G.get_partition_using_metrics(weight_threshold=WEIGHT_THRESH, cosine_threshold=COSINE_THRESH)
+
+    exit()
+
 
 if __name__ == "__main__":
     try:

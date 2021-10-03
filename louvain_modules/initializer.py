@@ -31,7 +31,7 @@ class Initializer:
         self.config = Reader.read_json(f"{self.protject_path}/configs/{arg_parser.parse_args().config}")
 
         self.parameters = self.config["parameters"]
-        self.k_depth_motif = self.set_motif(self.parameters["k_depth"])
+        self.k_depth = self.parameters["k_depth"]
 
         self.make_dirs()
 
@@ -71,11 +71,12 @@ class Initializer:
             .withColumn('weight',F.lit(1))
         )
 
+        
         G = Graph(nodes_df, edges_df, self.spark)
-        G.modularity()
-        exit()
+        
+        
         G.filter_out_small_communities()
-        G.communities()
+        
 
         return G
 
