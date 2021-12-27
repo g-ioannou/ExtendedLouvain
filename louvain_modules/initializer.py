@@ -35,7 +35,7 @@ class Initializer:
 
         self.make_dirs()
 
-    def initialize_graph(self):
+    def initialize_graph(self, k_depth: int):
         feature_cols = self.config["graph"]["nodes"]["features"]
         new_feature_cols = []
 
@@ -68,15 +68,12 @@ class Initializer:
             )
             .withColumnRenamed(self.config["graph"]["edges"]["source_col_name"], "src")
             .withColumnRenamed(self.config["graph"]["edges"]["target_col_name"], "dst")
-            .withColumn('weight',F.lit(1))
+            .withColumn("weight", F.lit(1))
         )
 
-        
-        G = Graph(nodes_df, edges_df, self.spark)
-        
-        
+        G = Graph(nodes_df, edges_df, k_depth, self.spark)
+
         G.filter_out_small_communities()
-        
 
         return G
 

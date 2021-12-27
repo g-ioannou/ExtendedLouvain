@@ -1,0 +1,80 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Graph</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 95%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"center": 8, "color": "#afc61e", "id": 8, "label": 8, "shape": "dot", "size": 10, "title": "ID: 8\u003cbr\u003eCommunity: 8", "x": 167, "y": 67}, {"center": 11, "color": "#d2b7c8", "id": 12, "label": 12, "shape": "dot", "size": 10, "title": "ID: 12\u003cbr\u003eCommunity: 11", "x": 183, "y": 85}, {"center": 4, "color": "#979b00", "id": 4, "label": 4, "shape": "dot", "size": 10, "title": "ID: 4\u003cbr\u003eCommunity: 4", "x": 23, "y": 6}, {"center": 8, "color": "#afc61e", "id": 1, "label": 1, "shape": "dot", "size": 10, "title": "ID: 1\u003cbr\u003eCommunity: 8", "x": 167, "y": 67}, {"center": 11, "color": "#d2b7c8", "id": 11, "label": 11, "shape": "dot", "size": 10, "title": "ID: 11\u003cbr\u003eCommunity: 11", "x": 183, "y": 85}, {"center": 3, "color": "#ab25d3", "id": 3, "label": 3, "shape": "dot", "size": 10, "title": "ID: 3\u003cbr\u003eCommunity: 3", "x": 32, "y": 143}, {"center": 4, "color": "#979b00", "id": 13, "label": 13, "shape": "dot", "size": 10, "title": "ID: 13\u003cbr\u003eCommunity: 4", "x": 23, "y": 6}, {"center": 15, "color": "#6ef178", "id": 14, "label": 14, "shape": "dot", "size": 10, "title": "ID: 14\u003cbr\u003eCommunity: 15", "x": 13, "y": 21}, {"center": 15, "color": "#6ef178", "id": 15, "label": 15, "shape": "dot", "size": 10, "title": "ID: 15\u003cbr\u003eCommunity: 15", "x": 13, "y": 21}, {"center": 15, "color": "#6ef178", "id": 16, "label": 16, "shape": "dot", "size": 10, "title": "ID: 16\u003cbr\u003eCommunity: 15", "x": 13, "y": 21}, {"center": 15, "color": "#6ef178", "id": 17, "label": 17, "shape": "dot", "size": 10, "title": "ID: 17\u003cbr\u003eCommunity: 15", "x": 13, "y": 21}, {"center": 3, "color": "#ab25d3", "id": 2, "label": 2, "shape": "dot", "size": 10, "title": "ID: 2\u003cbr\u003eCommunity: 3", "x": 32, "y": 143}, {"center": 7, "color": "#106897", "id": 6, "label": 6, "shape": "dot", "size": 10, "title": "ID: 6\u003cbr\u003eCommunity: 7", "x": 138, "y": 172}, {"center": 7, "color": "#106897", "id": 9, "label": 9, "shape": "dot", "size": 10, "title": "ID: 9\u003cbr\u003eCommunity: 7", "x": 138, "y": 172}, {"center": 8, "color": "#afc61e", "id": 5, "label": 5, "shape": "dot", "size": 10, "title": "ID: 5\u003cbr\u003eCommunity: 8", "x": 167, "y": 67}, {"center": 7, "color": "#106897", "id": 7, "label": 7, "shape": "dot", "size": 10, "title": "ID: 7\u003cbr\u003eCommunity: 7", "x": 138, "y": 172}, {"center": 7, "color": "#106897", "id": 10, "label": 10, "shape": "dot", "size": 10, "title": "ID: 10\u003cbr\u003eCommunity: 7", "x": 138, "y": 172}]);
+        edges = new vis.DataSet([{"from": 8, "title": "Source: 8\u003cbr\u003eTarget: 12\u003cbr\u003eWeight: 0.8\u003cbr\u003eCosine similiratiy: 0.0", "to": 12, "weight": 1}, {"from": 8, "title": "Source: 4\u003cbr\u003eTarget: 8\u003cbr\u003eWeight: 0.8\u003cbr\u003eCosine similiratiy: 0.0", "to": 4, "weight": 1}, {"from": 8, "title": "Source: 1\u003cbr\u003eTarget: 8\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.0", "to": 1, "weight": 1}, {"from": 12, "title": "Source: 11\u003cbr\u003eTarget: 12\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 11, "weight": 1}, {"from": 11, "title": "Source: 3\u003cbr\u003eTarget: 11\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.707", "to": 3, "weight": 1}, {"from": 13, "title": "Source: 13\u003cbr\u003eTarget: 14\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.707", "to": 14, "weight": 1}, {"from": 13, "title": "Source: 13\u003cbr\u003eTarget: 15\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.707", "to": 15, "weight": 1}, {"from": 13, "title": "Source: 13\u003cbr\u003eTarget: 4\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 4, "weight": 1}, {"from": 14, "title": "Source: 15\u003cbr\u003eTarget: 14\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 15, "weight": 1}, {"from": 14, "title": "Source: 14\u003cbr\u003eTarget: 16\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 16, "weight": 1}, {"from": 15, "title": "Source: 15\u003cbr\u003eTarget: 16\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 16, "weight": 1}, {"from": 15, "title": "Source: 15\u003cbr\u003eTarget: 17\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 17, "weight": 1}, {"from": 2, "title": "Source: 2\u003cbr\u003eTarget: 6\u003cbr\u003eWeight: 0.833\u003cbr\u003eCosine similiratiy: 0.0", "to": 6, "weight": 1}, {"from": 2, "title": "Source: 2\u003cbr\u003eTarget: 9\u003cbr\u003eWeight: 0.833\u003cbr\u003eCosine similiratiy: 0.0", "to": 9, "weight": 1}, {"from": 2, "title": "Source: 1\u003cbr\u003eTarget: 2\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.0", "to": 1, "weight": 1}, {"from": 2, "title": "Source: 3\u003cbr\u003eTarget: 2\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 3, "weight": 1}, {"from": 6, "title": "Source: 5\u003cbr\u003eTarget: 6\u003cbr\u003eWeight: 0.857\u003cbr\u003eCosine similiratiy: 0.0", "to": 5, "weight": 1}, {"from": 6, "title": "Source: 6\u003cbr\u003eTarget: 7\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 7, "weight": 1}, {"from": 5, "title": "Source: 1\u003cbr\u003eTarget: 5\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.0", "to": 1, "weight": 1}, {"from": 9, "title": "Source: 9\u003cbr\u003eTarget: 7\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 7, "weight": 1}, {"from": 16, "title": "Source: 17\u003cbr\u003eTarget: 16\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 17, "weight": 1}, {"from": 1, "title": "Source: 1\u003cbr\u003eTarget: 3\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.0", "to": 3, "weight": 1}, {"from": 4, "title": "Source: 7\u003cbr\u003eTarget: 4\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 0.0", "to": 7, "weight": 1}, {"from": 7, "title": "Source: 7\u003cbr\u003eTarget: 10\u003cbr\u003eWeight: 1.0\u003cbr\u003eCosine similiratiy: 1.0", "to": 10, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {"configure": {"enabled": true}, "edges": {"smooth": false}, "physics": {"barnesHut": {"gravitationalConstant": -150, "centralGravity": 0, "springConstant": 0, "damping": 1, "avoidOverlap": 1}, "maxVelocity": 1, "minVelocity": 1}};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
